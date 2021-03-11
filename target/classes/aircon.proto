@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "aircon";
-option java_outer_classname = "airconImpl";
+option java_outer_classname = "AirconImpl";
 
 package aircon;
 
@@ -10,7 +10,7 @@ service AirconService {
 		
 	rpc powerSwitch(PowerRequest) returns (PowerResponse) {}
 	
-	rpc getHeating(empty) returns (AdjustTempResponse) {}
+	rpc getHeating(Empty) returns (AdjustTempResponse) {}
 	
 }
 
@@ -23,11 +23,11 @@ message PowerResponse {
 }
 
 message AdjustTempRequest {
-	int32 adjust = 1
+	int32 adjust = 1;
 }
 
 message AdjustTempResponse{
-	int32 adjust = 1
+	int32 adjust = 1;
 }
 
 message Empty{}

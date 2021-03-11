@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "thermometer";
-option java_outer_classname = "ThermalscanServiceImpl";
+option java_outer_classname = "ThermometerServiceImpl";
 
 package thermometer;
 
@@ -10,7 +10,7 @@ service ThermometerService {
 		
 	rpc powerSwitch(PowerRequest) returns (PowerResponse) {}
 	
-	rpc changeTemp(empty) returns (stream TempResponse) {}
+	rpc changeTemp(Empty) returns (stream TempResponse) {}
 	
 }
 
