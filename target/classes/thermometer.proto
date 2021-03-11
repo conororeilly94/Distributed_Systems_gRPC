@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "thermometer";
+option java_outer_classname = "ThermalscanServiceImpl";
+
+package thermometer;
+
+service ThermometerService {
+		
+	rpc powerSwitch(PowerRequest) returns (PowerResponse) {}
+	
+	rpc changeTemp(empty) returns (stream TempResponse) {}
+	
+}
+
+message PowerRequest {
+	bool power = 1;
+}
+
+message PowerResponse {
+  	bool power = 1;
+}
+
+message TempRequest {
+	int32 temperature = 1;
+}
+
+message TempResponse {
+	int32 temperature = 1;
+}
+
+message Empty{}

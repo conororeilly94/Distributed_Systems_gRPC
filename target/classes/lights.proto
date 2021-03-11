@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "lights";
+option java_outer_classname = "LightsImpl";
+
+package lights;
+
+service LightService {
+		
+	rpc powerSwitch(PowerRequest) returns (PowerResponse) {}
+	
+	rpc brightness(stream BrightnessRequest) returns (stream BrightnessResponse) {}
+	
+}
+
+message PowerRequest {
+	bool power = 1;  
+}
+
+message PowerResponse {
+  	bool power = 1;
+}
+
+message BrightnessRequest {
+    int32 lights = 1;
+}
+
+message BrightnessResponse {
+    int32 lights = 1;
+}
+
+message Empty{}
