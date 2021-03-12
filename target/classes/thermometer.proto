@@ -10,7 +10,7 @@ service ThermometerService {
 		
 	rpc powerSwitch(PowerRequest) returns (PowerResponse) {}
 	
-	rpc changeTemp(Empty) returns (stream TempResponse) {}
+	rpc checkTemp(TempRequest) returns (stream TempResponse) {}
 	
 }
 
@@ -23,11 +23,11 @@ message PowerResponse {
 }
 
 message TempRequest {
-	int32 temperature = 1;
+	string temperature = 1;
 }
 
 message TempResponse {
-	int32 temperature = 1;
+	string temperature = 1;
 }
 
 message Empty{}

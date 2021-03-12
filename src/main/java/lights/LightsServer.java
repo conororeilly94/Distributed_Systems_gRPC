@@ -49,5 +49,37 @@ public class LightsServer extends LightServiceImplBase {
 		responseObserver.onCompleted();
 		
 	}
+	
+	public StreamObserver<BrightnessRequest> brightness(final StreamObserver<BrightnessResponse> responseObserver) {
+		return new StreamObserver<BrightnessRequest>() {
+			
+			int brightness = 0;
+
+			@Override
+			public void onNext(BrightnessRequest value) {
+				
+				brightness = value.getLights();
+				System.out.println("Brightness turned to level: " + brightness);
+				
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				// TODO Auto-generated method stub
+				t.printStackTrace();
+				
+			}
+
+			@Override
+			public void onCompleted() {
+				// TODO Auto-generated method stub
+				BrightnessResponse response = BrightnessResponse.newBuilder().setLights(brightness).build();
+				responseObserver.onNext(response);
+				responseObserver.onCompleted();
+				
+			}
+			
+		};
+	}
 
 }

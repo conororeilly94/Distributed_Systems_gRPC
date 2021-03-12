@@ -10,7 +10,7 @@ service AirconService {
 		
 	rpc powerSwitch(PowerRequest) returns (PowerResponse) {}
 	
-	rpc getHeating(Empty) returns (AdjustTempResponse) {}
+	rpc getHeating(AdjustTempRequest) returns (AdjustTempResponse) {}
 	
 }
 
