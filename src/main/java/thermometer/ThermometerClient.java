@@ -17,10 +17,11 @@ public class ThermometerClient {
 		asyncStub = ThermometerServiceGrpc.newStub(channel);
 		
 		powerSwitch();
+		checkTemp();
 
 	}
 
-	public static void powerSwitch() {
+	public static void powerSwitch() {	
 		
 		// send the request
 		PowerRequest request = PowerRequest.newBuilder().setPower(false).build();
@@ -37,5 +38,44 @@ public class ThermometerClient {
 		}
 
     }
+	
+	public static void checkTemp() {
+		
+		TempRequest request = TempRequest.newBuilder().setTemperature("15").build();
+		
+		StreamObserver<TempResponse> responseObserver = new StreamObserver<TempResponse>() {
+
+			@Override
+			public void onNext(TempResponse value) {
+				
+				System.out.println("Thermometer reads: " + value.getTemperature());
+				
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				
+			}
+
+			@Override
+			public void onCompleted() {
+				
+			}
+			
+		};
+		
+		asyncStub.checkTemp(request, responseObserver);
+		
+		try {
+			
+			Thread.sleep(300000);		
+			
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+	}
 	
 }

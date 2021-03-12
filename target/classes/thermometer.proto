@@ -29,5 +29,3 @@ message TempRequest {
 message TempResponse {
 	string temperature = 1;
 }
-
-message Empty{}

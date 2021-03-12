@@ -29,5 +29,3 @@ message BrightnessRequest {
 message BrightnessResponse {
     int32 lights = 1;
 }
-
-message Empty{}

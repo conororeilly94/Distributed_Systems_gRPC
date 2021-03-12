@@ -51,5 +51,16 @@ public class AirconServer extends AirconServiceImplBase {
 		responseObserver.onCompleted();
 		
 	}
+	
+	public void getHeating(AdjustTempRequest request, StreamObserver<AdjustTempResponse> responseObserver) {
+		
+		int temp = request.getAdjust();
+		System.out.println("Change temperature to: " + temp + " degrees");
+		System.out.println("Temperature set to: " + temp);
+		responseObserver.onNext(AdjustTempResponse.newBuilder().setAdjust(temp).build());
+		
+		responseObserver.onCompleted();
+		
+	}
 
 }

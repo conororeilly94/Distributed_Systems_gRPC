@@ -34,11 +34,6 @@ public final class AirconImpl {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_aircon_AdjustTempResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_aircon_Empty_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_aircon_Empty_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -52,11 +47,11 @@ public final class AirconImpl {
       "\n\005power\030\001 \001(\010\"\036\n\rPowerResponse\022\r\n\005power\030" +
       "\001 \001(\010\"#\n\021AdjustTempRequest\022\016\n\006adjust\030\001 \001" +
       "(\005\"$\n\022AdjustTempResponse\022\016\n\006adjust\030\001 \001(\005" +
-      "\"\007\n\005Empty2\210\001\n\rAirconService\022<\n\013powerSwit" +
-      "ch\022\024.aircon.PowerRequest\032\025.aircon.PowerR" +
-      "esponse\"\000\0229\n\ngetHeating\022\r.aircon.Empty\032\032" +
-      ".aircon.AdjustTempResponse\"\000B\026\n\006airconB\n" +
-      "AirconImplP\001b\006proto3"
+      "2\226\001\n\rAirconService\022<\n\013powerSwitch\022\024.airc" +
+      "on.PowerRequest\032\025.aircon.PowerResponse\"\000" +
+      "\022G\n\ngetHeating\022\031.aircon.AdjustTempReques" +
+      "t\032\032.aircon.AdjustTempResponse\"\0000\001B\026\n\006air" +
+      "conB\nAirconImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -94,12 +89,6 @@ public final class AirconImpl {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_aircon_AdjustTempResponse_descriptor,
         new java.lang.String[] { "Adjust", });
-    internal_static_aircon_Empty_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_aircon_Empty_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_aircon_Empty_descriptor,
-        new java.lang.String[] { });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

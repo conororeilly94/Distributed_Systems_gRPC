@@ -50,5 +50,17 @@ public class ThermometerServer extends ThermometerServiceImplBase {
 		responseObserver.onCompleted();
 		
 	}
-
+	
+	public void checkTemp(TempRequest request, StreamObserver<TempResponse> responseObserver) {
+		
+		StringBuilder temperature = new StringBuilder();
+		
+		temperature.append(request.getTemperature());
+		System.out.println(temperature);
+		
+		TempResponse response = TempResponse.newBuilder().setTemperature(temperature.toString()).build();
+		
+		responseObserver.onNext(response);
+		
+	}
 }

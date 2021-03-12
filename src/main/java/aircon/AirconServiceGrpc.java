@@ -59,28 +59,28 @@ public final class AirconServiceGrpc {
      return getPowerSwitchMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<aircon.Empty,
+  private static volatile io.grpc.MethodDescriptor<aircon.AdjustTempRequest,
       aircon.AdjustTempResponse> getGetHeatingMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "getHeating",
-      requestType = aircon.Empty.class,
+      requestType = aircon.AdjustTempRequest.class,
       responseType = aircon.AdjustTempResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<aircon.Empty,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<aircon.AdjustTempRequest,
       aircon.AdjustTempResponse> getGetHeatingMethod() {
-    io.grpc.MethodDescriptor<aircon.Empty, aircon.AdjustTempResponse> getGetHeatingMethod;
+    io.grpc.MethodDescriptor<aircon.AdjustTempRequest, aircon.AdjustTempResponse> getGetHeatingMethod;
     if ((getGetHeatingMethod = AirconServiceGrpc.getGetHeatingMethod) == null) {
       synchronized (AirconServiceGrpc.class) {
         if ((getGetHeatingMethod = AirconServiceGrpc.getGetHeatingMethod) == null) {
           AirconServiceGrpc.getGetHeatingMethod = getGetHeatingMethod = 
-              io.grpc.MethodDescriptor.<aircon.Empty, aircon.AdjustTempResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              io.grpc.MethodDescriptor.<aircon.AdjustTempRequest, aircon.AdjustTempResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "aircon.AirconService", "getHeating"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  aircon.Empty.getDefaultInstance()))
+                  aircon.AdjustTempRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   aircon.AdjustTempResponse.getDefaultInstance()))
                   .setSchemaDescriptor(new AirconServiceMethodDescriptorSupplier("getHeating"))
@@ -127,7 +127,7 @@ public final class AirconServiceGrpc {
 
     /**
      */
-    public void getHeating(aircon.Empty request,
+    public void getHeating(aircon.AdjustTempRequest request,
         io.grpc.stub.StreamObserver<aircon.AdjustTempResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getGetHeatingMethod(), responseObserver);
     }
@@ -143,9 +143,9 @@ public final class AirconServiceGrpc {
                   this, METHODID_POWER_SWITCH)))
           .addMethod(
             getGetHeatingMethod(),
-            asyncUnaryCall(
+            asyncServerStreamingCall(
               new MethodHandlers<
-                aircon.Empty,
+                aircon.AdjustTempRequest,
                 aircon.AdjustTempResponse>(
                   this, METHODID_GET_HEATING)))
           .build();
@@ -180,9 +180,9 @@ public final class AirconServiceGrpc {
 
     /**
      */
-    public void getHeating(aircon.Empty request,
+    public void getHeating(aircon.AdjustTempRequest request,
         io.grpc.stub.StreamObserver<aircon.AdjustTempResponse> responseObserver) {
-      asyncUnaryCall(
+      asyncServerStreamingCall(
           getChannel().newCall(getGetHeatingMethod(), getCallOptions()), request, responseObserver);
     }
   }
@@ -214,8 +214,9 @@ public final class AirconServiceGrpc {
 
     /**
      */
-    public aircon.AdjustTempResponse getHeating(aircon.Empty request) {
-      return blockingUnaryCall(
+    public java.util.Iterator<aircon.AdjustTempResponse> getHeating(
+        aircon.AdjustTempRequest request) {
+      return blockingServerStreamingCall(
           getChannel(), getGetHeatingMethod(), getCallOptions(), request);
     }
   }
@@ -245,14 +246,6 @@ public final class AirconServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getPowerSwitchMethod(), getCallOptions()), request);
     }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<aircon.AdjustTempResponse> getHeating(
-        aircon.Empty request) {
-      return futureUnaryCall(
-          getChannel().newCall(getGetHeatingMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_POWER_SWITCH = 0;
@@ -280,7 +273,7 @@ public final class AirconServiceGrpc {
               (io.grpc.stub.StreamObserver<aircon.PowerResponse>) responseObserver);
           break;
         case METHODID_GET_HEATING:
-          serviceImpl.getHeating((aircon.Empty) request,
+          serviceImpl.getHeating((aircon.AdjustTempRequest) request,
               (io.grpc.stub.StreamObserver<aircon.AdjustTempResponse>) responseObserver);
           break;
         default:

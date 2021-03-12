@@ -17,6 +17,7 @@ public class AirconClient {
 		asyncStub = AirconServiceGrpc.newStub(channel);
 		
 		powerSwitch();
+		getHeating();
 
 	}
 	
@@ -35,6 +36,49 @@ public class AirconClient {
 		else {
 			System.out.println("Aircon power has been turned off!");
 		}
+		
+	}
+	
+	public static void getHeating() {
+		
+		AdjustTempRequest request = AdjustTempRequest.newBuilder().setAdjust(15).build();
+		System.out.println("Changing temperature of medical environment to: " + request + " degrees");
+		
+		StreamObserver<AdjustTempResponse> responseObserver = new StreamObserver<AdjustTempResponse>() {
+
+			@Override
+			public void onNext(AdjustTempResponse value) {
+				
+				System.out.println("The temperature of the room has been changed to: " + value + " degrees");
+				
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				
+				t.printStackTrace();
+				
+			}
+
+			@Override
+			public void onCompleted() {
+				
+				System.out.println("On completed");
+				
+			}
+		};
+			
+			asyncStub.getHeating(request, responseObserver);
+			
+			try {
+				
+				Thread.sleep(30000);
+				
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+				
+			}
 		
 	}
 

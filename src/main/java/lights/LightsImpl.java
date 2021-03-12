@@ -34,11 +34,6 @@ public final class LightsImpl {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_lights_BrightnessResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_lights_Empty_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_lights_Empty_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -52,11 +47,11 @@ public final class LightsImpl {
       "\n\005power\030\001 \001(\010\"\036\n\rPowerResponse\022\r\n\005power\030" +
       "\001 \001(\010\"#\n\021BrightnessRequest\022\016\n\006lights\030\001 \001" +
       "(\005\"$\n\022BrightnessResponse\022\016\n\006lights\030\001 \001(\005" +
-      "\"\007\n\005Empty2\227\001\n\014LightService\022<\n\013powerSwitc" +
-      "h\022\024.lights.PowerRequest\032\025.lights.PowerRe" +
-      "sponse\"\000\022I\n\nbrightness\022\031.lights.Brightne" +
-      "ssRequest\032\032.lights.BrightnessResponse\"\000(" +
-      "\0010\001B\026\n\006lightsB\nLightsImplP\001b\006proto3"
+      "2\227\001\n\014LightService\022<\n\013powerSwitch\022\024.light" +
+      "s.PowerRequest\032\025.lights.PowerResponse\"\000\022" +
+      "I\n\nbrightness\022\031.lights.BrightnessRequest" +
+      "\032\032.lights.BrightnessResponse\"\000(\0010\001B\026\n\006li" +
+      "ghtsB\nLightsImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -94,12 +89,6 @@ public final class LightsImpl {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_lights_BrightnessResponse_descriptor,
         new java.lang.String[] { "Lights", });
-    internal_static_lights_Empty_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_lights_Empty_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_lights_Empty_descriptor,
-        new java.lang.String[] { });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

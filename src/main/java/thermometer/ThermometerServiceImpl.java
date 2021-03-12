@@ -34,11 +34,6 @@ public final class ThermometerServiceImpl {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_thermometer_TempResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_thermometer_Empty_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_thermometer_Empty_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -51,13 +46,13 @@ public final class ThermometerServiceImpl {
       "\n\021thermometer.proto\022\013thermometer\"\035\n\014Powe" +
       "rRequest\022\r\n\005power\030\001 \001(\010\"\036\n\rPowerResponse" +
       "\022\r\n\005power\030\001 \001(\010\"\"\n\013TempRequest\022\023\n\013temper" +
-      "ature\030\001 \001(\005\"#\n\014TempResponse\022\023\n\013temperatu" +
-      "re\030\001 \001(\005\"\007\n\005Empty2\235\001\n\022ThermometerService" +
-      "\022F\n\013powerSwitch\022\031.thermometer.PowerReque" +
-      "st\032\032.thermometer.PowerResponse\"\000\022?\n\nchan" +
-      "geTemp\022\022.thermometer.Empty\032\031.thermometer" +
-      ".TempResponse\"\0000\001B\'\n\013thermometerB\026Thermo" +
-      "meterServiceImplP\001b\006proto3"
+      "ature\030\001 \001(\t\"#\n\014TempResponse\022\023\n\013temperatu" +
+      "re\030\001 \001(\t2\242\001\n\022ThermometerService\022F\n\013power" +
+      "Switch\022\031.thermometer.PowerRequest\032\032.ther" +
+      "mometer.PowerResponse\"\000\022D\n\tcheckTemp\022\030.t" +
+      "hermometer.TempRequest\032\031.thermometer.Tem" +
+      "pResponse\"\0000\001B\'\n\013thermometerB\026Thermomete" +
+      "rServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -95,12 +90,6 @@ public final class ThermometerServiceImpl {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_thermometer_TempResponse_descriptor,
         new java.lang.String[] { "Temperature", });
-    internal_static_thermometer_Empty_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_thermometer_Empty_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_thermometer_Empty_descriptor,
-        new java.lang.String[] { });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

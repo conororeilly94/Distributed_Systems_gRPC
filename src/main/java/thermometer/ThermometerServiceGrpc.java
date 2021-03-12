@@ -59,36 +59,36 @@ public final class ThermometerServiceGrpc {
      return getPowerSwitchMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<thermometer.Empty,
-      thermometer.TempResponse> getChangeTempMethod;
+  private static volatile io.grpc.MethodDescriptor<thermometer.TempRequest,
+      thermometer.TempResponse> getCheckTempMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "changeTemp",
-      requestType = thermometer.Empty.class,
+      fullMethodName = SERVICE_NAME + '/' + "checkTemp",
+      requestType = thermometer.TempRequest.class,
       responseType = thermometer.TempResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
-  public static io.grpc.MethodDescriptor<thermometer.Empty,
-      thermometer.TempResponse> getChangeTempMethod() {
-    io.grpc.MethodDescriptor<thermometer.Empty, thermometer.TempResponse> getChangeTempMethod;
-    if ((getChangeTempMethod = ThermometerServiceGrpc.getChangeTempMethod) == null) {
+  public static io.grpc.MethodDescriptor<thermometer.TempRequest,
+      thermometer.TempResponse> getCheckTempMethod() {
+    io.grpc.MethodDescriptor<thermometer.TempRequest, thermometer.TempResponse> getCheckTempMethod;
+    if ((getCheckTempMethod = ThermometerServiceGrpc.getCheckTempMethod) == null) {
       synchronized (ThermometerServiceGrpc.class) {
-        if ((getChangeTempMethod = ThermometerServiceGrpc.getChangeTempMethod) == null) {
-          ThermometerServiceGrpc.getChangeTempMethod = getChangeTempMethod = 
-              io.grpc.MethodDescriptor.<thermometer.Empty, thermometer.TempResponse>newBuilder()
+        if ((getCheckTempMethod = ThermometerServiceGrpc.getCheckTempMethod) == null) {
+          ThermometerServiceGrpc.getCheckTempMethod = getCheckTempMethod = 
+              io.grpc.MethodDescriptor.<thermometer.TempRequest, thermometer.TempResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(
-                  "thermometer.ThermometerService", "changeTemp"))
+                  "thermometer.ThermometerService", "checkTemp"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  thermometer.Empty.getDefaultInstance()))
+                  thermometer.TempRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   thermometer.TempResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new ThermometerServiceMethodDescriptorSupplier("changeTemp"))
+                  .setSchemaDescriptor(new ThermometerServiceMethodDescriptorSupplier("checkTemp"))
                   .build();
           }
         }
      }
-     return getChangeTempMethod;
+     return getCheckTempMethod;
   }
 
   /**
@@ -127,9 +127,9 @@ public final class ThermometerServiceGrpc {
 
     /**
      */
-    public void changeTemp(thermometer.Empty request,
+    public void checkTemp(thermometer.TempRequest request,
         io.grpc.stub.StreamObserver<thermometer.TempResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getChangeTempMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getCheckTempMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -142,12 +142,12 @@ public final class ThermometerServiceGrpc {
                 thermometer.PowerResponse>(
                   this, METHODID_POWER_SWITCH)))
           .addMethod(
-            getChangeTempMethod(),
+            getCheckTempMethod(),
             asyncServerStreamingCall(
               new MethodHandlers<
-                thermometer.Empty,
+                thermometer.TempRequest,
                 thermometer.TempResponse>(
-                  this, METHODID_CHANGE_TEMP)))
+                  this, METHODID_CHECK_TEMP)))
           .build();
     }
   }
@@ -180,10 +180,10 @@ public final class ThermometerServiceGrpc {
 
     /**
      */
-    public void changeTemp(thermometer.Empty request,
+    public void checkTemp(thermometer.TempRequest request,
         io.grpc.stub.StreamObserver<thermometer.TempResponse> responseObserver) {
       asyncServerStreamingCall(
-          getChannel().newCall(getChangeTempMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getCheckTempMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -214,10 +214,10 @@ public final class ThermometerServiceGrpc {
 
     /**
      */
-    public java.util.Iterator<thermometer.TempResponse> changeTemp(
-        thermometer.Empty request) {
+    public java.util.Iterator<thermometer.TempResponse> checkTemp(
+        thermometer.TempRequest request) {
       return blockingServerStreamingCall(
-          getChannel(), getChangeTempMethod(), getCallOptions(), request);
+          getChannel(), getCheckTempMethod(), getCallOptions(), request);
     }
   }
 
@@ -249,7 +249,7 @@ public final class ThermometerServiceGrpc {
   }
 
   private static final int METHODID_POWER_SWITCH = 0;
-  private static final int METHODID_CHANGE_TEMP = 1;
+  private static final int METHODID_CHECK_TEMP = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -272,8 +272,8 @@ public final class ThermometerServiceGrpc {
           serviceImpl.powerSwitch((thermometer.PowerRequest) request,
               (io.grpc.stub.StreamObserver<thermometer.PowerResponse>) responseObserver);
           break;
-        case METHODID_CHANGE_TEMP:
-          serviceImpl.changeTemp((thermometer.Empty) request,
+        case METHODID_CHECK_TEMP:
+          serviceImpl.checkTemp((thermometer.TempRequest) request,
               (io.grpc.stub.StreamObserver<thermometer.TempResponse>) responseObserver);
           break;
         default:
@@ -338,7 +338,7 @@ public final class ThermometerServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new ThermometerServiceFileDescriptorSupplier())
               .addMethod(getPowerSwitchMethod())
-              .addMethod(getChangeTempMethod())
+              .addMethod(getCheckTempMethod())
               .build();
         }
       }
