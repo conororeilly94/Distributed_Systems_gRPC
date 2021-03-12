@@ -9,11 +9,10 @@ import java.io.IOException;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
-import lights.LightsServer;
 
 public class ThermometerServer extends ThermometerServiceImplBase {
 	
-	private static final Logger logger = Logger.getLogger(LightsServer.class.getName());
+	private static final Logger logger = Logger.getLogger(ThermometerServer.class.getName());
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		

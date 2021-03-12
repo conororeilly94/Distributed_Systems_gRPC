@@ -9,14 +9,12 @@ import java.io.IOException;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
-import lights.LightsServer;
-import thermometer.PowerRequest;
-import thermometer.PowerResponse;
+
 
 
 public class AirconServer extends AirconServiceImplBase {
 	
-	private static final Logger logger = Logger.getLogger(LightsServer.class.getName());
+	private static final Logger logger = Logger.getLogger(AirconServer.class.getName());
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		

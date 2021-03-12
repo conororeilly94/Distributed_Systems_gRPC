@@ -3,8 +3,6 @@ package lights;
 import java.util.logging.Logger;
 
 import lights.LightServiceGrpc.LightServiceImplBase;
-import thermometer.PowerRequest;
-import thermometer.PowerResponse;
 
 import java.io.IOException;
 
