@@ -6,11 +6,12 @@ option java_outer_classname = "AirconImpl";
 
 package aircon;
 
+
 service AirconService {
 		
 	rpc powerSwitch(PowerRequest) returns (PowerResponse) {}
 	
-	rpc getHeating(AdjustTempRequest) returns (stream AdjustTempResponse) {}
+	rpc getHeating(stream AdjustTempRequest) returns (AdjustTempResponse) {}
 	
 }
 

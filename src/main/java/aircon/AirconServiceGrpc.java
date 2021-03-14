@@ -66,7 +66,7 @@ public final class AirconServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "getHeating",
       requestType = aircon.AdjustTempRequest.class,
       responseType = aircon.AdjustTempResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
   public static io.grpc.MethodDescriptor<aircon.AdjustTempRequest,
       aircon.AdjustTempResponse> getGetHeatingMethod() {
     io.grpc.MethodDescriptor<aircon.AdjustTempRequest, aircon.AdjustTempResponse> getGetHeatingMethod;
@@ -75,7 +75,7 @@ public final class AirconServiceGrpc {
         if ((getGetHeatingMethod = AirconServiceGrpc.getGetHeatingMethod) == null) {
           AirconServiceGrpc.getGetHeatingMethod = getGetHeatingMethod = 
               io.grpc.MethodDescriptor.<aircon.AdjustTempRequest, aircon.AdjustTempResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "aircon.AirconService", "getHeating"))
               .setSampledToLocalTracing(true)
@@ -127,9 +127,9 @@ public final class AirconServiceGrpc {
 
     /**
      */
-    public void getHeating(aircon.AdjustTempRequest request,
+    public io.grpc.stub.StreamObserver<aircon.AdjustTempRequest> getHeating(
         io.grpc.stub.StreamObserver<aircon.AdjustTempResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getGetHeatingMethod(), responseObserver);
+      return asyncUnimplementedStreamingCall(getGetHeatingMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -143,7 +143,7 @@ public final class AirconServiceGrpc {
                   this, METHODID_POWER_SWITCH)))
           .addMethod(
             getGetHeatingMethod(),
-            asyncServerStreamingCall(
+            asyncClientStreamingCall(
               new MethodHandlers<
                 aircon.AdjustTempRequest,
                 aircon.AdjustTempResponse>(
@@ -180,10 +180,10 @@ public final class AirconServiceGrpc {
 
     /**
      */
-    public void getHeating(aircon.AdjustTempRequest request,
+    public io.grpc.stub.StreamObserver<aircon.AdjustTempRequest> getHeating(
         io.grpc.stub.StreamObserver<aircon.AdjustTempResponse> responseObserver) {
-      asyncServerStreamingCall(
-          getChannel().newCall(getGetHeatingMethod(), getCallOptions()), request, responseObserver);
+      return asyncClientStreamingCall(
+          getChannel().newCall(getGetHeatingMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -210,14 +210,6 @@ public final class AirconServiceGrpc {
     public aircon.PowerResponse powerSwitch(aircon.PowerRequest request) {
       return blockingUnaryCall(
           getChannel(), getPowerSwitchMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public java.util.Iterator<aircon.AdjustTempResponse> getHeating(
-        aircon.AdjustTempRequest request) {
-      return blockingServerStreamingCall(
-          getChannel(), getGetHeatingMethod(), getCallOptions(), request);
     }
   }
 
@@ -272,10 +264,6 @@ public final class AirconServiceGrpc {
           serviceImpl.powerSwitch((aircon.PowerRequest) request,
               (io.grpc.stub.StreamObserver<aircon.PowerResponse>) responseObserver);
           break;
-        case METHODID_GET_HEATING:
-          serviceImpl.getHeating((aircon.AdjustTempRequest) request,
-              (io.grpc.stub.StreamObserver<aircon.AdjustTempResponse>) responseObserver);
-          break;
         default:
           throw new AssertionError();
       }
@@ -286,6 +274,9 @@ public final class AirconServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_GET_HEATING:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.getHeating(
+              (io.grpc.stub.StreamObserver<aircon.AdjustTempResponse>) responseObserver);
         default:
           throw new AssertionError();
       }

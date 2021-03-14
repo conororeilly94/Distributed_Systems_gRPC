@@ -50,7 +50,7 @@ public final class AirconImpl {
       "2\226\001\n\rAirconService\022<\n\013powerSwitch\022\024.airc" +
       "on.PowerRequest\032\025.aircon.PowerResponse\"\000" +
       "\022G\n\ngetHeating\022\031.aircon.AdjustTempReques" +
-      "t\032\032.aircon.AdjustTempResponse\"\0000\001B\026\n\006air" +
+      "t\032\032.aircon.AdjustTempResponse\"\000(\001B\026\n\006air" +
       "conB\nAirconImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

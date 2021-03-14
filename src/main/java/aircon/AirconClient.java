@@ -1,5 +1,7 @@
 package aircon;
 
+import java.util.Random;
+
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
@@ -55,30 +57,45 @@ public class AirconClient {
 
 			@Override
 			public void onError(Throwable t) {
-				
-				t.printStackTrace();
-				
+								
 			}
 
 			@Override
 			public void onCompleted() {
 				
-				System.out.println("On completed");
-				
 			}
+			
 		};
 			
-			asyncStub.getHeating(request, responseObserver);
+		StreamObserver<AdjustTempRequest> requestObserver = asyncStub.getHeating(responseObserver);
+		
+		try {
 			
-			try {
-				
-				Thread.sleep(30000);
-				
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
-				
-			}
+			requestObserver.onNext(AdjustTempRequest.newBuilder().setAdjust(15).build());
+			System.out.println("Sent");
+			requestObserver.onNext(AdjustTempRequest.newBuilder().setAdjust(16).build());
+			System.out.println("Sent");
+			requestObserver.onNext(AdjustTempRequest.newBuilder().setAdjust(17).build());
+			System.out.println("Sent");
+			requestObserver.onNext(AdjustTempRequest.newBuilder().setAdjust(18).build());
+			System.out.println("Sent");
+			requestObserver.onNext(AdjustTempRequest.newBuilder().setAdjust(19).build());
+			System.out.println("Sent");
+			
+			Thread.sleep(new Random().nextInt(1000) + 500);
+			
+		} catch (RuntimeException e) {
+			
+			requestObserver.onError(e);
+			throw e;
+			
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		requestObserver.onCompleted();
 		
 	}
 

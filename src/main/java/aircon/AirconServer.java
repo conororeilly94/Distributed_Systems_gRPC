@@ -10,7 +10,7 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
-
+//Changed PowerRequest/Response files -> power_ = true
 
 public class AirconServer extends AirconServiceImplBase {
 	
@@ -38,11 +38,14 @@ public class AirconServer extends AirconServiceImplBase {
 		
 		Boolean power = request.getPower();
 		
-		if(power) {
+		if(power == true) {
 			System.out.println("Power turned on");
 		}
-		else {
+		else if (power == false) {
 			System.out.println("Power turned off");
+		}
+		else {
+			System.out.println("No option selected");
 		}
 		
 		PowerResponse response = PowerResponse.newBuilder().setPower(power).build();
@@ -52,14 +55,48 @@ public class AirconServer extends AirconServiceImplBase {
 		
 	}
 	
-	public void getHeating(AdjustTempRequest request, StreamObserver<AdjustTempResponse> responseObserver) {
+//	public void getHeating(AdjustTempRequest request, StreamObserver<AdjustTempResponse> responseObserver) {
+//		
+//		int temp = request.getAdjust();
+//		System.out.println("Change temperature to: " + temp + " degrees");
+//		System.out.println("Temperature set to: " + temp);
+//		responseObserver.onNext(AdjustTempResponse.newBuilder().setAdjust(temp).build());
+//		
+//		responseObserver.onCompleted();
+//		
+//	}
+	
+	public StreamObserver<AdjustTempRequest> getHeating(final StreamObserver<AdjustTempResponse> responseObserver) {
 		
-		int temp = request.getAdjust();
-		System.out.println("Change temperature to: " + temp + " degrees");
-		System.out.println("Temperature set to: " + temp);
-		responseObserver.onNext(AdjustTempResponse.newBuilder().setAdjust(temp).build());
-		
-		responseObserver.onCompleted();
+		return new StreamObserver<AdjustTempRequest>() {
+			
+			int heating = 0;
+
+			@Override
+			public void onNext(AdjustTempRequest value) {
+				
+				heating = value.getAdjust();
+				System.out.println("Request to change the heating to: " + heating);
+				
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				
+				t.printStackTrace();
+				
+			}
+
+			@Override
+			public void onCompleted() {
+				
+				AdjustTempResponse response = AdjustTempResponse.newBuilder().setAdjust(heating).build();
+				responseObserver.onNext(response);
+				responseObserver.onCompleted();
+				
+			}	
+			
+		};
 		
 	}
 
