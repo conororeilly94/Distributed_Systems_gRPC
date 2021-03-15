@@ -12,6 +12,8 @@ import io.grpc.stub.StreamObserver;
 
 public class ThermometerServer extends ThermometerServiceImplBase {
 	
+	private boolean power = false;
+	
 	private static final Logger logger = Logger.getLogger(ThermometerServer.class.getName());
 
 	public static void main(String[] args) throws InterruptedException, IOException {
@@ -31,17 +33,16 @@ public class ThermometerServer extends ThermometerServiceImplBase {
 		
 	}
 	
-	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {
-		
+	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {		
 		System.out.println("Request received to turn on/off power");
 		
-		Boolean power = request.getPower();
+		power = !power;
 		
 		if(power) {
-			System.out.println("Power turned on");
+			System.out.println("Thermal Scanner turned on");
 		}
 		else {
-			System.out.println("Power turned off");
+			System.out.println("Thermal Scanner turned off");
 		}
 		
 		PowerResponse response = PowerResponse.newBuilder().setPower(power).build();

@@ -12,6 +12,8 @@ import io.grpc.stub.StreamObserver;
 
 public class LightsServer extends LightServiceImplBase {
 	
+	private boolean power = false;
+	
 	private static final Logger logger = Logger.getLogger(LightsServer.class.getName());
 
 	public static void main(String[] args) throws InterruptedException, IOException {
@@ -34,13 +36,13 @@ public class LightsServer extends LightServiceImplBase {
 	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {
 		System.out.println("Request received to turn on/off power");
 		
-		Boolean power = request.getPower();
+		power = !power;
 		
 		if(power) {
-			System.out.println("Power turned on");
+			System.out.println("Lights turned on");
 		}
 		else {
-			System.out.println("Power turned off");
+			System.out.println("Lights turned off");
 		}
 		
 		PowerResponse response = PowerResponse.newBuilder().setPower(power).build();

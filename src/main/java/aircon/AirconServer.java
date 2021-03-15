@@ -10,9 +10,10 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
-//Changed PowerRequest/Response files -> power_ = true
 
 public class AirconServer extends AirconServiceImplBase {
+	
+	private boolean power = false;
 	
 	private static final Logger logger = Logger.getLogger(AirconServer.class.getName());
 
@@ -36,16 +37,13 @@ public class AirconServer extends AirconServiceImplBase {
 	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {
 		System.out.println("Request received to turn on/off power");
 		
-		Boolean power = request.getPower();
+		power = !power;
 		
-		if(power == true) {
-			System.out.println("Power turned on");
-		}
-		else if (power == false) {
-			System.out.println("Power turned off");
+		if(power) {
+			System.out.println("Aircon turned on");
 		}
 		else {
-			System.out.println("No option selected");
+			System.out.println("Aircon turned off");
 		}
 		
 		PowerResponse response = PowerResponse.newBuilder().setPower(power).build();
@@ -54,17 +52,6 @@ public class AirconServer extends AirconServiceImplBase {
 		responseObserver.onCompleted();
 		
 	}
-	
-//	public void getHeating(AdjustTempRequest request, StreamObserver<AdjustTempResponse> responseObserver) {
-//		
-//		int temp = request.getAdjust();
-//		System.out.println("Change temperature to: " + temp + " degrees");
-//		System.out.println("Temperature set to: " + temp);
-//		responseObserver.onNext(AdjustTempResponse.newBuilder().setAdjust(temp).build());
-//		
-//		responseObserver.onCompleted();
-//		
-//	}
 	
 	public StreamObserver<AdjustTempRequest> getHeating(final StreamObserver<AdjustTempResponse> responseObserver) {
 		

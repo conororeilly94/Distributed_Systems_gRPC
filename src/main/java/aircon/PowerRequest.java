@@ -81,7 +81,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int POWER_FIELD_NUMBER = 1;
-  private boolean power_ = true;
+  private boolean power_;
   /**
    * <code>bool power = 1;</code>
    */
