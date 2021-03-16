@@ -47,6 +47,7 @@ public class AirconClient {
 		System.out.println("Changing temperature of medical environment to: " + request + " degrees");
 		
 		StreamObserver<AdjustTempResponse> responseObserver = new StreamObserver<AdjustTempResponse>() {
+			
 
 			@Override
 			public void onNext(AdjustTempResponse value) {

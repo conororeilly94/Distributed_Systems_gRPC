@@ -15,6 +15,8 @@ public class AirconServer extends AirconServiceImplBase {
 	
 	private boolean power = false;
 	
+	private int heating = 0;
+	
 	private static final Logger logger = Logger.getLogger(AirconServer.class.getName());
 
 	public static void main(String[] args) throws InterruptedException, IOException {
@@ -35,7 +37,7 @@ public class AirconServer extends AirconServiceImplBase {
 	}
 	
 	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {
-		System.out.println("Request received to turn on/off power");
+		System.out.println("Request received to turn on/off power of air conditioning");
 		
 		power = !power;
 		
@@ -53,16 +55,19 @@ public class AirconServer extends AirconServiceImplBase {
 		
 	}
 	
-	public StreamObserver<AdjustTempRequest> getHeating(final StreamObserver<AdjustTempResponse> responseObserver) {
+	@Override
+	public StreamObserver<AdjustTempRequest> getHeating(final StreamObserver<AdjustTempResponse> responseObserver) {		
+		System.out.println("Request received to adjust temperature of air conditioning");
 		
 		return new StreamObserver<AdjustTempRequest>() {
-			
-			int heating = 0;
 
 			@Override
 			public void onNext(AdjustTempRequest value) {
 				
 				heating = value.getAdjust();
+				
+				responseObserver.onNext(AdjustTempResponse.newBuilder().setAdjust(heating).build());
+				
 				System.out.println("Request to change the heating to: " + heating);
 				
 			}
@@ -77,14 +82,14 @@ public class AirconServer extends AirconServiceImplBase {
 			@Override
 			public void onCompleted() {
 				
-				AdjustTempResponse response = AdjustTempResponse.newBuilder().setAdjust(heating).build();
-				responseObserver.onNext(response);
+//				AdjustTempResponse response = AdjustTempResponse.newBuilder().setAdjust(heating).build();
+//				responseObserver.onNext(response);
 				responseObserver.onCompleted();
 				
 			}	
 			
 		};
-		
+	
 	}
 
 }
