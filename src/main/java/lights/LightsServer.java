@@ -14,6 +14,8 @@ public class LightsServer extends LightServiceImplBase {
 	
 	private boolean power = false;
 	
+	private int brightness = 0;
+	
 	private static final Logger logger = Logger.getLogger(LightsServer.class.getName());
 
 	public static void main(String[] args) throws InterruptedException, IOException {
@@ -53,20 +55,19 @@ public class LightsServer extends LightServiceImplBase {
 	}
 	
 	public StreamObserver<BrightnessRequest> brightness(final StreamObserver<BrightnessResponse> responseObserver) {
+		System.out.println("Request received to adjust temperature of air conditioning");
 		
-		return new StreamObserver<BrightnessRequest>() {
-			
-			int brightness = 0;
+		return new StreamObserver<BrightnessRequest>() {		
 
 			@Override
 			public void onNext(BrightnessRequest value) {
 				
 				brightness = value.getLights();
-				System.out.println("Brightness turned to level: " + brightness);
 				
 				BrightnessResponse reply = BrightnessResponse.newBuilder().setLights(brightness).build();
 				
 				responseObserver.onNext(reply);
+				System.out.println("Brightness level changed");
 				
 			}
 

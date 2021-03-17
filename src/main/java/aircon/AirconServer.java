@@ -57,7 +57,7 @@ public class AirconServer extends AirconServiceImplBase {
 	
 	@Override
 	public StreamObserver<AdjustTempRequest> getHeating(final StreamObserver<AdjustTempResponse> responseObserver) {		
-		System.out.println("Request received to adjust temperature of air conditioning");
+		System.out.println("Request received to set temperature of air conditioning");
 		
 		return new StreamObserver<AdjustTempRequest>() {
 
@@ -82,8 +82,8 @@ public class AirconServer extends AirconServiceImplBase {
 			@Override
 			public void onCompleted() {
 				
-//				AdjustTempResponse response = AdjustTempResponse.newBuilder().setAdjust(heating).build();
-//				responseObserver.onNext(response);
+				AdjustTempResponse response = AdjustTempResponse.newBuilder().setAdjust(heating).build();
+				responseObserver.onNext(response);
 				responseObserver.onCompleted();
 				
 			}	

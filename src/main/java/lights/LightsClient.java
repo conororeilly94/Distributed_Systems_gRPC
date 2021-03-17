@@ -70,14 +70,6 @@ public class LightsClient {
 			
 			requestObserver.onNext(BrightnessRequest.newBuilder().setLights(1).build());
 			System.out.println("Request Sent");
-			requestObserver.onNext(BrightnessRequest.newBuilder().setLights(2).build());
-			System.out.println("Request Sent");
-			requestObserver.onNext(BrightnessRequest.newBuilder().setLights(3).build());
-			System.out.println("Request Sent");
-			requestObserver.onNext(BrightnessRequest.newBuilder().setLights(4).build());
-			System.out.println("Request Sent");
-			requestObserver.onNext(BrightnessRequest.newBuilder().setLights(5).build());
-			System.out.println("Request Sent");
 			
 			Thread.sleep(new Random().nextInt(1000) + 500);
 			

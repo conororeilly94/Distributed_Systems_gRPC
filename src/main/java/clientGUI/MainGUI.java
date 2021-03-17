@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.util.Random;
 
 import javax.swing.Box;
@@ -24,7 +25,10 @@ import aircon.AdjustTempResponse;
 import aircon.AirconServiceGrpc;
 import aircon.PowerRequest;
 import aircon.PowerResponse;
+import lights.BrightnessRequest;
+import lights.BrightnessResponse;
 import lights.LightServiceGrpc;
+import thermometer.TempResponse;
 import thermometer.ThermometerServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -33,12 +37,15 @@ import lights.LightServiceGrpc;
 
 public class MainGUI implements ActionListener {
 	
-	private JTextField reply1;
-	private JTextField reply2;
-	private JTextField reply3;
-	private JTextField reply4;
+	private JTextField reply1; // Aircon on/off
+	private JTextField reply2; // Lights on/off
+	private JTextField reply3; // Thermal scanner on/off
+	private JTextField reply4; // Aircon temp
+	private JTextField reply5; // Lights brightness
+	private JTextField reply6; // Check temp
 	
-	private JTextField entry1;
+	private JTextField entry1; // Aircon temp
+	private JTextField entry2; // Lights Brightness
 	
 	public static AirconServiceGrpc.AirconServiceBlockingStub blockingStub;
 	public static AirconServiceGrpc.AirconServiceStub asyncStub;
@@ -92,7 +99,7 @@ public class MainGUI implements ActionListener {
 		panel.add(entry1);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 		
-		JToggleButton button = new JToggleButton("Set");
+		JToggleButton button = new JToggleButton("Adjust");
 		button.addActionListener(this);
 		panel.add(button);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -143,6 +150,34 @@ public class MainGUI implements ActionListener {
 
 	}
 	
+	private JPanel getLightsService2JPanel() {
+
+		JPanel panel = new JPanel();
+
+		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.X_AXIS);
+		
+		JLabel label = new JLabel("Change brightness of the room: ");
+		panel.add(label);
+
+		entry2 = new JTextField("", 10);
+		panel.add(entry2);
+		panel.add(Box.createRigidArea(new Dimension(10, 0)));
+		
+		JToggleButton button = new JToggleButton("Set");
+		button.addActionListener(this);
+		panel.add(button);
+		panel.add(Box.createRigidArea(new Dimension(10, 0)));
+
+		reply5 = new JTextField("", 10);
+		reply5 .setEditable(false);
+		panel.add(reply5);
+
+		panel.setLayout(boxlayout);
+
+		return panel;
+
+	}
+	
 	private JPanel heading3() {
 		
 		JPanel panel = new JPanel();
@@ -172,6 +207,30 @@ public class MainGUI implements ActionListener {
 		reply3 = new JTextField("", 10);
 		reply3 .setEditable(false);
 		panel.add(reply3);
+
+		panel.setLayout(boxlayout);
+
+		return panel;
+
+	}
+	
+	private JPanel getThermometerService2JPanel() {
+
+		JPanel panel = new JPanel();
+
+		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.X_AXIS);
+		
+		JLabel label = new JLabel("Take temperature: ");
+		panel.add(label);
+
+		JToggleButton button = new JToggleButton("Check");
+		button.addActionListener(this);
+		panel.add(button);
+		panel.add(Box.createRigidArea(new Dimension(10, 0)));
+
+		reply6 = new JTextField("", 10);
+		reply6 .setEditable(false);
+		panel.add(reply6);
 
 		panel.setLayout(boxlayout);
 
@@ -230,6 +289,7 @@ public class MainGUI implements ActionListener {
 		panel.add(getLightsService1JPanel());
 		
 		// Set brightness
+		panel.add(getLightsService2JPanel());
 		
 		// Heading for Thermometer
 		panel.add(heading3());
@@ -238,6 +298,7 @@ public class MainGUI implements ActionListener {
 		panel.add(getThermometerService1JPanel());
 		
 		// Get temp
+		panel.add(getThermometerService2JPanel());
 		
 	}
 
@@ -307,7 +368,8 @@ public class MainGUI implements ActionListener {
 		}
 		
 		// ADJUST TEMPERATURE OF AIR CON
-		if (label.equals("Set")) {
+		if (label.equals("Adjust")) {
+			System.out.println("Air conditioning adjust temp service to be invoked");
 			
 			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50053).usePlaintext().build();
 			
@@ -363,6 +425,111 @@ public class MainGUI implements ActionListener {
 			
 //			requestObserver.onCompleted();
 			
+			
+		}
+		
+		if (label.equals("Set")) {
+			System.out.println("Lights brightness service to be invoked");
+			
+			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
+			
+			LightServiceGrpc.LightServiceBlockingStub blockingStub = LightServiceGrpc.newBlockingStub(channel);
+			LightServiceGrpc.LightServiceStub asyncStub = LightServiceGrpc.newStub(channel);
+			
+			lights.BrightnessRequest request = lights.BrightnessRequest.newBuilder().setLights(Integer.parseInt(entry2.getText())).build();
+			
+			reply5.setText("Brightness: " + request);
+			
+			StreamObserver<BrightnessResponse> responseObserver = new StreamObserver<BrightnessResponse>() {
+
+				@Override
+				public void onNext(BrightnessResponse value) {
+					
+					System.out.println("Brightness has been set to level" + request);
+					
+				}
+
+				@Override
+				public void onError(Throwable t) {
+					
+					
+				}
+
+				@Override
+				public void onCompleted() {
+					
+				}
+				
+			};
+				
+			StreamObserver<BrightnessRequest> requestObserver = asyncStub.brightness(responseObserver);
+			try {
+				
+				requestObserver.onNext(BrightnessRequest.newBuilder().setLights(1).build());
+				System.out.println("Request Sent");
+				
+				Thread.sleep(new Random().nextInt(1000) + 500);
+				
+			} catch (RuntimeException g) {
+				requestObserver.onError(g);
+				throw g;
+				
+			} catch (InterruptedException g) {
+				
+				g.printStackTrace();
+				
+			}
+			
+				requestObserver.onCompleted();	
+			
+		}
+		
+		if (label.equals("Check")) {
+			System.out.println("Thermal Scanner temp check service to be invoked");
+			
+			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
+			
+			ThermometerServiceGrpc.ThermometerServiceBlockingStub blockingStub = ThermometerServiceGrpc.newBlockingStub(channel);
+			ThermometerServiceGrpc.ThermometerServiceStub asyncStub = ThermometerServiceGrpc.newStub(channel);
+			
+			thermometer.TempRequest request = thermometer.TempRequest.newBuilder().setTemperature("15").build();
+			
+//			thermometer.TempResponse response = blockingStub.checkTemp(Integer.parseInt(request));
+			
+			reply6.setText("Reads: " + request);
+			
+			StreamObserver<TempResponse> responseObserver = new StreamObserver<TempResponse>() {
+
+				@Override
+				public void onNext(TempResponse value) {
+					
+					System.out.println("Thermal Scanner reads: " + value.getTemperature());
+					
+				}
+
+				@Override
+				public void onError(Throwable t) {
+					
+				}
+
+				@Override
+				public void onCompleted() {
+					
+				}
+				
+			};
+			
+			asyncStub.checkTemp(request, responseObserver);
+			
+			try {
+				
+				Thread.sleep(300000);		
+				
+			} catch (InterruptedException l) {
+				
+				l.printStackTrace();
+				
+			}
 			
 		}
 		
