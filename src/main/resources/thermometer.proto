@@ -23,9 +23,9 @@ message PowerResponse {
 }
 
 message TempRequest {
-	string temperature = 1;
+	int32 temperature = 1;
 }
 
 message TempResponse {
-	string temperature = 1;
+	int32 temperature = 1;
 }

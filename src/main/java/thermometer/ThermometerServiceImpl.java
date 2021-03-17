@@ -46,8 +46,8 @@ public final class ThermometerServiceImpl {
       "\n\021thermometer.proto\022\013thermometer\"\035\n\014Powe" +
       "rRequest\022\r\n\005power\030\001 \001(\010\"\036\n\rPowerResponse" +
       "\022\r\n\005power\030\001 \001(\010\"\"\n\013TempRequest\022\023\n\013temper" +
-      "ature\030\001 \001(\t\"#\n\014TempResponse\022\023\n\013temperatu" +
-      "re\030\001 \001(\t2\242\001\n\022ThermometerService\022F\n\013power" +
+      "ature\030\001 \001(\005\"#\n\014TempResponse\022\023\n\013temperatu" +
+      "re\030\001 \001(\0052\242\001\n\022ThermometerService\022F\n\013power" +
       "Switch\022\031.thermometer.PowerRequest\032\032.ther" +
       "mometer.PowerResponse\"\000\022D\n\tcheckTemp\022\030.t" +
       "hermometer.TempRequest\032\031.thermometer.Tem" +

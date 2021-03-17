@@ -59,7 +59,7 @@ public class ThermometerServer extends ThermometerServiceImplBase {
 		temperature.append(request.getTemperature());
 		System.out.println("Temperature recorded: " + temperature);
 		
-		TempResponse response = TempResponse.newBuilder().setTemperature(temperature.toString()).build();
+		TempResponse response = TempResponse.newBuilder().setTemperature(15).build();
 		
 		responseObserver.onNext(response);
 		

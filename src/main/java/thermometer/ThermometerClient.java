@@ -41,7 +41,7 @@ public class ThermometerClient {
 	
 	public static void checkTemp() {
 		
-		TempRequest request = TempRequest.newBuilder().setTemperature("15").build();
+		TempRequest request = TempRequest.newBuilder().setTemperature(15).build();
 		
 		StreamObserver<TempResponse> responseObserver = new StreamObserver<TempResponse>() {
 

@@ -306,7 +306,8 @@ public class MainGUI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Line 184
 		JToggleButton tBtn = (JToggleButton)e.getSource();
-		String label = tBtn.getActionCommand();  
+		String label = tBtn.getActionCommand();
+		Random ran = new Random();
 		
 		// TURN AIRCON ON OR OFF!!!
 		if (label.equals("Aircon ON/OFF")) {
@@ -484,6 +485,8 @@ public class MainGUI implements ActionListener {
 			
 		}
 		
+		
+		
 		if (label.equals("Check")) {
 			System.out.println("Thermal Scanner temp check service to be invoked");
 			
@@ -492,18 +495,25 @@ public class MainGUI implements ActionListener {
 			ThermometerServiceGrpc.ThermometerServiceBlockingStub blockingStub = ThermometerServiceGrpc.newBlockingStub(channel);
 			ThermometerServiceGrpc.ThermometerServiceStub asyncStub = ThermometerServiceGrpc.newStub(channel);
 			
-			thermometer.TempRequest request = thermometer.TempRequest.newBuilder().setTemperature("15").build();
+			thermometer.TempRequest request = thermometer.TempRequest.newBuilder().setTemperature(ran.nextInt(14)+5).build();
 			
-//			thermometer.TempResponse response = blockingStub.checkTemp(Integer.parseInt(request));
+			Iterator<TempResponse> response = blockingStub.checkTemp(request);
 			
-			reply6.setText("Reads: " + request);
+//			reply6.setText("Reads " + request);
+			
+			if (tBtn.isSelected()) {
+				reply6.setText("Reads: " + request);
+			}
+			else {
+				reply6.setText("Reads: " + request);
+			}
 			
 			StreamObserver<TempResponse> responseObserver = new StreamObserver<TempResponse>() {
 
 				@Override
 				public void onNext(TempResponse value) {
 					
-					System.out.println("Thermal Scanner reads: " + value.getTemperature());
+					System.out.println("Thermal Scanner reads: " + request.getTemperature());
 					
 				}
 
@@ -523,7 +533,7 @@ public class MainGUI implements ActionListener {
 			
 			try {
 				
-				Thread.sleep(300000);		
+				Thread.sleep(3);		
 				
 			} catch (InterruptedException l) {
 				
@@ -534,4 +544,5 @@ public class MainGUI implements ActionListener {
 		}
 		
 	}
+	
 }
