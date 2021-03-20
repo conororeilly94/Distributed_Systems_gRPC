@@ -38,7 +38,7 @@ public class LightsServer extends LightServiceImplBase {
 	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {
 		System.out.println("Request received to turn on/off power");
 		
-		power = !power;
+		power = request.getPower();
 		
 		if(power) {
 			System.out.println("Lights turned on");
@@ -55,7 +55,7 @@ public class LightsServer extends LightServiceImplBase {
 	}
 	
 	public StreamObserver<BrightnessRequest> brightness(final StreamObserver<BrightnessResponse> responseObserver) {
-		System.out.println("Request received to adjust temperature of air conditioning");
+		System.out.println("Request received to adjust brightness of lights");
 		
 		return new StreamObserver<BrightnessRequest>() {		
 
@@ -74,15 +74,13 @@ public class LightsServer extends LightServiceImplBase {
 			@Override
 			public void onError(Throwable t) {
 				
-				System.out.println("ERROR");
+				t.printStackTrace();
 				
 			}
 
 			@Override
 			public void onCompleted() {
 				
-//				BrightnessResponse response = BrightnessResponse.newBuilder().setLights(brightness).build();
-//				responseObserver.onNext(response);
 				responseObserver.onCompleted();
 				
 			}

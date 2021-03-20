@@ -310,6 +310,7 @@ public class MainGUI implements ActionListener {
 		Random ran = new Random();
 		
 		// TURN AIRCON ON OR OFF!!!
+		/////////// UNARY ///////////
 		if (label.equals("Aircon ON/OFF")) {
 			System.out.println("Aircon on/off service to be invoked");	
 			
@@ -330,6 +331,7 @@ public class MainGUI implements ActionListener {
 		}
 		
 		// TURN LIGHTS ON OR OFF!!!
+		/////////// UNARY ///////////
 		if (label.equals("Lights ON/OFF")) {
 			System.out.println("Lights on/off service to be invoked");
 			
@@ -350,6 +352,7 @@ public class MainGUI implements ActionListener {
 		}
 		
 		// TURN THERMAL SCANNER ON OR OFF!!!
+		/////////// UNARY ///////////
 		if (label.equals("Thermal Scanner ON/OFF")) {
 			System.out.println("Thermal Scanner on/off service to be invoked");
 			
@@ -369,6 +372,7 @@ public class MainGUI implements ActionListener {
 		}
 		
 		// ADJUST TEMPERATURE OF AIR CON
+		/////////// CLIENT STREAMING ///////////
 		if (label.equals("Adjust")) {
 			System.out.println("Air conditioning adjust temp service to be invoked");
 			
@@ -394,11 +398,15 @@ public class MainGUI implements ActionListener {
 
 				@Override
 				public void onError(Throwable t) {
+					
+					t.printStackTrace();
 									
 				}
 
 				@Override
 				public void onCompleted() {
+					
+					System.out.println("Completed");
 					
 				}
 				
@@ -410,25 +418,34 @@ public class MainGUI implements ActionListener {
 				
 				requestObserver.onNext(AdjustTempRequest.newBuilder().setAdjust(Integer.parseInt(entry1.getText())).build());
 				System.out.println("Sent");
+				requestObserver.onNext(AdjustTempRequest.newBuilder().setAdjust(Integer.parseInt(entry1.getText())).build());
+				System.out.println("Sent");
+				requestObserver.onNext(AdjustTempRequest.newBuilder().setAdjust(Integer.parseInt(entry1.getText())).build());
+				System.out.println("Sent");
+				requestObserver.onNext(AdjustTempRequest.newBuilder().setAdjust(Integer.parseInt(entry1.getText())).build());
+				System.out.println("Sent");
+				requestObserver.onNext(AdjustTempRequest.newBuilder().setAdjust(Integer.parseInt(entry1.getText())).build());
+				System.out.println("Sent");
 				
 				Thread.sleep(new Random().nextInt(1000) + 500);
 				
 			} catch (RuntimeException f) {
 				
-//				requestObserver.onError(f);
-//				throw f;
+				requestObserver.onError(f);
+				throw f;
 				
 			} catch (InterruptedException f) {
 				
-//				f.printStackTrace();
+				f.printStackTrace();
 				
 			}
 			
-//			requestObserver.onCompleted();
-			
+			requestObserver.onCompleted();	
 			
 		}
 		
+		// Set brightness of the lights
+		/////////// BI-DIRECTIONAL STREAMING ///////////
 		if (label.equals("Set")) {
 			System.out.println("Lights brightness service to be invoked");
 			
@@ -453,25 +470,38 @@ public class MainGUI implements ActionListener {
 				@Override
 				public void onError(Throwable t) {
 					
+					t.printStackTrace();
 					
 				}
 
 				@Override
 				public void onCompleted() {
 					
+					System.out.println("Completed");
+					
 				}
 				
 			};
 				
 			StreamObserver<BrightnessRequest> requestObserver = asyncStub.brightness(responseObserver);
+			
 			try {
 				
-				requestObserver.onNext(BrightnessRequest.newBuilder().setLights(1).build());
-				System.out.println("Request Sent");
+				requestObserver.onNext(BrightnessRequest.newBuilder().setLights(Integer.parseInt(entry2.getText())).build());
+				System.out.println("Request Sent 1");
+				requestObserver.onNext(BrightnessRequest.newBuilder().setLights(Integer.parseInt(entry2.getText())).build());
+				System.out.println("Request Sent 2");
+				requestObserver.onNext(BrightnessRequest.newBuilder().setLights(Integer.parseInt(entry2.getText())).build());
+				System.out.println("Request Sent 3");
+				requestObserver.onNext(BrightnessRequest.newBuilder().setLights(Integer.parseInt(entry2.getText())).build());
+				System.out.println("Request Sent 4");
+				requestObserver.onNext(BrightnessRequest.newBuilder().setLights(Integer.parseInt(entry2.getText())).build());
+				System.out.println("Request Sent 5");
 				
 				Thread.sleep(new Random().nextInt(1000) + 500);
 				
 			} catch (RuntimeException g) {
+				
 				requestObserver.onError(g);
 				throw g;
 				
@@ -485,8 +515,8 @@ public class MainGUI implements ActionListener {
 			
 		}
 		
-		
-		
+		// Check temperature on thermal scanner
+		/////////// SERVER STREAMING ///////////
 		if (label.equals("Check")) {
 			System.out.println("Thermal Scanner temp check service to be invoked");
 			
@@ -499,13 +529,16 @@ public class MainGUI implements ActionListener {
 			
 			Iterator<TempResponse> response = blockingStub.checkTemp(request);
 			
-//			reply6.setText("Reads " + request);
-			
 			if (tBtn.isSelected()) {
+				
 				reply6.setText("Reads: " + request);
+				
 			}
+			
 			else {
+				
 				reply6.setText("Reads: " + request);
+				
 			}
 			
 			StreamObserver<TempResponse> responseObserver = new StreamObserver<TempResponse>() {
@@ -520,10 +553,14 @@ public class MainGUI implements ActionListener {
 				@Override
 				public void onError(Throwable t) {
 					
+					t.printStackTrace();
+					
 				}
 
 				@Override
 				public void onCompleted() {
+					
+					System.out.println("Completed");
 					
 				}
 				
@@ -539,7 +576,9 @@ public class MainGUI implements ActionListener {
 				
 				l.printStackTrace();
 				
-			}
+			} 
+			
+			responseObserver.onCompleted();
 			
 		}
 		

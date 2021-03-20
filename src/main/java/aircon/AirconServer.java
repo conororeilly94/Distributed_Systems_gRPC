@@ -33,13 +33,13 @@ public class AirconServer extends AirconServiceImplBase {
 		logger.info("AirconServer started, listening on " + port);
 		
 		server.awaitTermination();
-
+		
 	}
 	
 	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {
 		System.out.println("Request received to turn on/off power of air conditioning");
 		
-		power = !power;
+		power = request.getPower();
 		
 		if(power) {
 			System.out.println("Aircon turned on");
@@ -66,8 +66,6 @@ public class AirconServer extends AirconServiceImplBase {
 				
 				heating = value.getAdjust();
 				
-				responseObserver.onNext(AdjustTempResponse.newBuilder().setAdjust(heating).build());
-				
 				System.out.println("Request to change the heating to: " + heating);
 				
 			}
@@ -82,14 +80,14 @@ public class AirconServer extends AirconServiceImplBase {
 			@Override
 			public void onCompleted() {
 				
-				AdjustTempResponse response = AdjustTempResponse.newBuilder().setAdjust(heating).build();
+				AdjustTempResponse response = AdjustTempResponse.newBuilder().setAdjust(heating).build();				
 				responseObserver.onNext(response);
 				responseObserver.onCompleted();
-				
-			}	
+								
+			}			
 			
 		};
-	
+		
 	}
 
 }

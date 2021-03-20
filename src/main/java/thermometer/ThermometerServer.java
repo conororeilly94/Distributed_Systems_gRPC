@@ -33,16 +33,22 @@ public class ThermometerServer extends ThermometerServiceImplBase {
 		
 	}
 	
-	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {		
+	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {	
+		
 		System.out.println("Request received to turn on/off power");
 		
-		power = !power;
+		power = request.getPower();
 		
 		if(power) {
+			
 			System.out.println("Thermal Scanner turned on");
+			
 		}
+		
 		else {
+			
 			System.out.println("Thermal Scanner turned off");
+			
 		}
 		
 		PowerResponse response = PowerResponse.newBuilder().setPower(power).build();
@@ -54,14 +60,18 @@ public class ThermometerServer extends ThermometerServiceImplBase {
 	
 	public void checkTemp(TempRequest request, StreamObserver<TempResponse> responseObserver) {
 		
+		System.out.println("Request received to take temperature on thermal scanner");
+		
 		StringBuilder temperature = new StringBuilder();
 		
 		temperature.append(request.getTemperature());
-		System.out.println("Temperature recorded: " + temperature);
+		System.out.println("Temperature currently at: " + temperature);
+		System.out.println("Temperature displayed: " + temperature);
 		
 		TempResponse response = TempResponse.newBuilder().setTemperature(15).build();
 		
 		responseObserver.onNext(response);
+		responseObserver.onCompleted();
 		
 	}
 }
