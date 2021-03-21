@@ -38,7 +38,7 @@ public class LightsServer extends LightServiceImplBase {
 	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {
 		System.out.println("Request received to turn on/off power");
 		
-		power = request.getPower();
+		power = !power;
 		
 		if(power) {
 			System.out.println("Lights turned on");

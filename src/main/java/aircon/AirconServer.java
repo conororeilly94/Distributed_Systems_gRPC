@@ -39,7 +39,7 @@ public class AirconServer extends AirconServiceImplBase {
 	public void powerSwitch(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {
 		System.out.println("Request received to turn on/off power of air conditioning");
 		
-		power = request.getPower();
+		power = !power;
 		
 		if(power) {
 			System.out.println("Aircon turned on");

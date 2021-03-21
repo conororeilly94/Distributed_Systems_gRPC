@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
@@ -49,6 +50,72 @@ public class MainGUI implements ActionListener {
 	
 	public static AirconServiceGrpc.AirconServiceBlockingStub blockingStub;
 	public static AirconServiceGrpc.AirconServiceStub asyncStub;
+	
+public static void main(String [] args) {
+		
+		MainGUI main = new MainGUI();
+		
+		main.build();
+		
+	}
+	
+	public void build() {
+		
+		JFrame frame = new JFrame();
+		frame.setTitle("Smart Medical Environment"); // Sets title of frame
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// Set the panel to add buttons
+		JPanel panel = new JPanel();
+
+		// Set the BoxLayout to be X_AXIS: from left to right
+		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+		panel.setLayout(boxlayout);
+
+		// Set border for the panel
+		panel.setBorder(new EmptyBorder(new Insets(50, 100, 50, 100)));
+		
+		frame.setSize(800,500); // Sets x and y dimension of frame
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+		frame.setLocation(x,y); // Sets frame in center
+		frame.getContentPane().setBackground(new Color(0x123456)); // Set background color
+		
+		// ADD SERVICES
+		// Heading for Aircon
+		panel.add(heading1());
+		
+		// Aircon Service
+		// On/off
+		panel.add(getAirconService1JPanel());
+		// Increase/decrease temp
+		panel.add(getAirconService2JPanel());
+		
+		// Heading for Lights
+		panel.add(heading2());
+		// Light Service
+		// On/off
+		panel.add(getLightsService1JPanel());
+		
+		// Set brightness
+		panel.add(getLightsService2JPanel());
+		
+		// Heading for Thermometer
+		panel.add(heading3());
+		// Thermometer Service
+		// On/off
+		panel.add(getThermometerService1JPanel());
+		
+		// Get temp
+		panel.add(getThermometerService2JPanel());
+		
+		frame.add(panel);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+	}
 	
 	private JPanel heading1() {
 		
@@ -237,70 +304,6 @@ public class MainGUI implements ActionListener {
 		return panel;
 
 	}
-	
-	public static void main(String [] args) {
-		
-		MainGUI main = new MainGUI();
-		
-		main.build();
-		
-	}
-	
-	public void build() {
-		
-		JFrame frame = new JFrame();
-		frame.setTitle("Smart Medical Environment"); // Sets title of frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// Set the panel to add buttons
-		JPanel panel = new JPanel();
-
-		// Set the BoxLayout to be X_AXIS: from left to right
-		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-		panel.setLayout(boxlayout);
-
-		// Set border for the panel
-		panel.setBorder(new EmptyBorder(new Insets(50, 100, 50, 100)));
-
-		frame.setSize(500,500); // Sets x and y dimension of frame
-		frame.setLocationRelativeTo(null); // Sets frame in center
-//		frame.setResizable(false); // Prevent frame from being resized
-		frame.getContentPane().setBackground(new Color(0x123456)); // Set background color
-
-		// Set the window to be visible as the default to be false
-		frame.add(panel);
-		frame.pack();
-		frame.setVisible(true);
-		
-		// ADD SERVICES
-		// Heading for Aircon
-		panel.add(heading1());
-		
-		// Aircon Service
-		// On/off
-		panel.add(getAirconService1JPanel());
-		// Increase/decrease temp
-		panel.add(getAirconService2JPanel());
-		
-		// Heading for Lights
-		panel.add(heading2());
-		// Light Service
-		// On/off
-		panel.add(getLightsService1JPanel());
-		
-		// Set brightness
-		panel.add(getLightsService2JPanel());
-		
-		// Heading for Thermometer
-		panel.add(heading3());
-		// Thermometer Service
-		// On/off
-		panel.add(getThermometerService1JPanel());
-		
-		// Get temp
-		panel.add(getThermometerService2JPanel());
-		
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -382,8 +385,6 @@ public class MainGUI implements ActionListener {
 			AirconServiceGrpc.AirconServiceStub asyncStub = AirconServiceGrpc.newStub(channel);
 			
 			aircon.AdjustTempRequest request = aircon.AdjustTempRequest.newBuilder().setAdjust(Integer.parseInt(entry1.getText())).build();
-			
-//			AdjustTempRequest request = AdjustTempRequest.newBuilder().setAdjust(Integer.parseInt(entry1.getText())).build();
 			
 			reply4.setText(request + " degrees");
 			

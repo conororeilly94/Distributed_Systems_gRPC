@@ -37,7 +37,7 @@ public class ThermometerServer extends ThermometerServiceImplBase {
 		
 		System.out.println("Request received to turn on/off power");
 		
-		power = request.getPower();
+		power = !power;
 		
 		if(power) {
 			
